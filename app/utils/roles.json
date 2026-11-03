@@ -1,0 +1,16 @@
+{
+    "admin":[
+        "create:users","read:users","update:users","delete:users",
+        "read:restaurants","delete:restaurants",
+        "create:category","read:category","update:category","delete:category",
+        "read:orders"
+    ],
+    "owner":[
+        "create:restaurants","update:restaurants",
+        "create:food","read:food","update:food","delete:food",
+        "read:order","update:order", "update:orderStatus"   
+    ],
+    "user":[
+        "read:category","view:order","update:order"
+    ]
+}
