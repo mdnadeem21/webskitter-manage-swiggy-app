@@ -1,14 +1,37 @@
 const express = require('express')
-const { authenticateToken, authorizePermission } = require('../middleware/auth.role.check')
-const uploadFile = require('../utils/upload.file.on.local') 
+const {
+  authenticateToken,
+  authorizePermission,
+} = require('../middleware/auth.role.check')
 const OrderController = require('../controller/order.controller')
 
 const router = express.Router()
 
-router.post('/', authenticateToken, OrderController.create)
-router.get('/', authenticateToken, OrderController.getAll)
-router.get('/:id', authenticateToken, OrderController.getById)
-router.patch('/:id', authenticateToken, OrderController.update)
-router.delete('/:id', authenticateToken, OrderController.delete)
+router.use(authenticateToken)
+
+router.post(
+  '/',
+  authorizePermission('order:create'),   // user role
+  OrderController.create
+)
+
+router.get(
+  '/',
+  authorizePermission('order:read'),
+  OrderController.getAll
+)
+
+router.get(
+  '/:id',
+  authorizePermission('order:read'),
+  OrderController.getById
+)
+
+router.patch(
+  '/:id/status',
+  authorizePermission('order:update-status'),
+  OrderController.updateStatus
+)
+
 
 module.exports = router
