@@ -2,26 +2,26 @@
 
 const Restaurant = require("../model/restaurant.model")
 class RestaurantController {
-	
+
 
 	async create(req, res, next) {
 		try {
-            const { name, description, cuisines, address, } = req.body
-            if( !name || !description || !address){
-                return res.status(400).json({
-                    status:false,
-                    message:"Name, Address and description are required"
-                })
+			const { name, description, cuisines, address, } = req.body
+			if (!name || !description || !address) {
+				return res.status(400).json({
+					status: false,
+					message: "Name, Address and description are required"
+				})
 
-            }
-            const isRestaurantExist = await findOne({name})
-            if(isRestaurantExist){
-                 return res.status(400).json({
-                    status:false,
-                    message:"Restaurant already Exist"
-                })
-            }
-			const restaurant = await Restaurant.create({name, address,description,cuisines});
+			}
+			const isRestaurantExist = await findOne({ name })
+			if (isRestaurantExist) {
+				return res.status(400).json({
+					status: false,
+					message: "Restaurant already Exist"
+				})
+			}
+			const restaurant = await Restaurant.create({ name, address, description, cuisines });
 			return res.status(201).json(restaurant);
 		} catch (error) {
 			return next(error);
@@ -74,6 +74,21 @@ class RestaurantController {
 			return res.status(200).json({ message: "Restaurant deleted successfully" });
 		} catch (error) {
 			return next(error);
+		}
+	}
+
+	
+	async search(req, res) {
+		try {
+			const { search } = req.query;
+			const filter = {};
+			if (search && search.trim()) {
+				filter.name = { $regex: search.trim(), $options: 'i' }; // case-insensitive partial match
+			}
+			const restaurants = await Restaurant.find(filter).limit(50);
+			return res.status(200).json(restaurants);
+		} catch (error) {
+			return res.status(500).json({ message: 'Failed to search restaurants' });
 		}
 	}
 }

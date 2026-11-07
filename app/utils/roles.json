@@ -1,9 +1,12 @@
 {
     "admin":[
+        "admin:all",
         "create:users","read:users","update:users","delete:users",
         "read:restaurants","delete:restaurants",
         "create:category","read:category","update:category","delete:category",
-        "read:orders"
+        "read:orders",
+        "cart:manage"
+
     ],
     "owner":[
         "create:restaurants","update:restaurants",
@@ -11,6 +14,7 @@
         "read:order","update:order", "update:orderStatus"   
     ],
     "user":[
-        "read:category","view:order","update:order"
+        "read:category","view:order","update:order",
+        "cart:manage"
     ]
 }

@@ -27,7 +27,8 @@ const UserSchema=new mongoose.Schema({
     refreshToken:{
         type:String,
         default:null
-    }
+    },
+    isBlocked: { type: Boolean, default: false }
 },{timestamps:true});
 
 UserSchema.methods.generateRefreshToken = function () {

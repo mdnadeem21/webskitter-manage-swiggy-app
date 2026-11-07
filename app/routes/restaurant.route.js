@@ -9,8 +9,6 @@ const RestaurantController = require("../controller/restaurant.controller");
 const router = express.Router();
 
 router.get("/", RestaurantController.getAll);
-router.get("/:id", RestaurantController.getById);
-
 router.post(
   "/",
   authenticateToken,
@@ -18,6 +16,9 @@ router.post(
   uploadFile.single("image"),
   RestaurantController.create,
 );
+router.get('/search', RestaurantController.search);
+router.get("/:id", RestaurantController.getById);
+
 
 router.put(
   "/:id",

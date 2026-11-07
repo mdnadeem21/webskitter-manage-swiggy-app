@@ -34,7 +34,10 @@ const categoryRoutes=require('./app/routes/category.route')
 app.use('/api/category/v1',categoryRoutes)
 const orderRoutes=require('./app/routes/order.route')
 app.use('/api/order/v1',orderRoutes)
-
+const cartRoutes=require('./app/routes/cart.route')
+app.use('/api/cart/v1',cartRoutes)
+const adminRoutes=require('./app/routes/admin.route')
+app.use('/api/admin/v1',adminRoutes)
 
 const PORT = process.env.PORT || 9090;
 app.listen(PORT,(error)=>{

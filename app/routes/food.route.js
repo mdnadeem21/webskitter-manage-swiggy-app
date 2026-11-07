@@ -7,6 +7,7 @@ const router = express.Router()
 
 router.post('/', authenticateToken, authorizePermission('food:create'), uploadFile.single('image'), FoodController.createFood)
 router.get('/', FoodController.getAllFoods)
+router.get('/search', FoodController.searchAndFilter);
 router.get('/:id', FoodController.getFoodById)
 router.put('/:id', authenticateToken, authorizePermission('food:update'), uploadFile.single('image'), FoodController.updateFood)
 router.delete('/:id', authenticateToken, authorizePermission('food:delete'), FoodController.deleteFood)

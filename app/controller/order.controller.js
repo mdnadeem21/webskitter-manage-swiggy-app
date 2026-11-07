@@ -21,7 +21,7 @@ const ROLE_PERMISSIONS = {
 };
 
 class OrderController {
-    // POST /orders  (user)
+    
     async create(req, res) {
         try {
             const { restaurantId, items, deliveryAddress, paymentMethod } = req.body;
@@ -62,7 +62,7 @@ class OrderController {
         }
     }
 
-    // GET /orders  — role-scoped list (user: own, owner: their restaurant, admin: all)
+   
     async getAll(req, res) {
         try {
             const filter = {};
@@ -88,7 +88,7 @@ class OrderController {
         }
     }
 
-    // GET /orders/:id — must be owner of the order, the restaurant, or admin
+    
     async getById(req, res) {
         try {
             const order = await Order.findById(req.params.id).populate('userId', 'name email');
@@ -107,7 +107,7 @@ class OrderController {
         }
     }
 
-    // PATCH /orders/:id/status  — single controlled status update
+    
     async updateStatus(req, res) {
         try {
             const { status, reason } = req.body;
@@ -157,7 +157,7 @@ class OrderController {
         }
     }
 
-    // Centralized error handling — not everything is a 500
+    // Centralized error handling
     handleError(res, error, fallbackMessage) {
         if (error instanceof mongoose.Error.ValidationError) {
             return res.status(400).json({ message: error.message });
